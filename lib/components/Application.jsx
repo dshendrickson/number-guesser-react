@@ -22,9 +22,9 @@ export default class Application extends Component {
     };
   }
 
-  // generateNumberToGuess(lowNumber, highNumber) = () => {
-  //   let numberToGuess = Math.floor((Math.random() * (((lowNumber) - (highNumber) + 1))) + (lowNumber));
-  // }
+  generateNumberToGuess(lowNumber, highNumber) {
+    let numberToGuess = Math.floor((Math.random() * (((lowNumber) - (highNumber) + 1))) + (lowNumber));
+  }
   //
   // updateRangeValue(v) {
   //   const {name, value}

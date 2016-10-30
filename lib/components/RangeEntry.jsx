@@ -5,11 +5,11 @@ const RangeEntry = () => {
   return (
     <div className='range-entry'>
       <h2>Enter a Number Range:</h2>
-      <input className='number-range-low'
+      <input className='range-entry__low'
             name='numberRangeLow' placeholder='1'
             value='1'
             aria-label='low number for guess range' />
-      <input className='number-range-high'
+      <input className='range-entry__high'
             name='numberRangeHigh' placeholder='100'
             value='100'
             aria-label='high number for guess range' />
