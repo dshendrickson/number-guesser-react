@@ -1,7 +1,22 @@
 // Fonts
 
 @import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono|Roboto+Slab);
+
 $main-font: 'Roboto', sans-serif;
 $condensed-font: 'Roboto Condensed', sans-serif;
 $serif-font: 'Roboto Slab', serif;
 $monosapce-font: 'Roboto Mono', monospace;
+
+// Colors
+
+$brand-green: #338D6A;
+$brand-blue: #246080;
+$brand-taupe: #DBDED6;
+$brand-light-gray: #F2F2F2;
+
+// Palette
+
+$primary-color: $brand-green;
+$secondary-color: $brand-blue;
+$background-dark: $brand-taupe;
+$background-light: $brand-light-gray;

@@ -8193,10 +8193,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// require('./style.scss');
-	
 	(0, _reactDom.render)(_react2.default.createElement(_Application2.default, null), document.getElementById('react-container'));
-	// import firebase from './firebase';
 
 /***/ },
 /* 299 */
@@ -29433,7 +29430,7 @@
 	        _react2.default.createElement(
 	          'h1',
 	          null,
-	          'Hello World!'
+	          'Number Guesser'
 	        )
 	      );
 	    }
