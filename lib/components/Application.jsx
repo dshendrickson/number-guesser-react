@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import TitleBar from './TitleBar';
 import RangeEntry from './RangeEntry';
+import GuessResult from './GuessResult';
 
 export default class Application extends Component {
 
@@ -16,7 +17,7 @@ export default class Application extends Component {
       numberRangeLow: '1',
       numberRangeHigh: '100',
       guessFeedbackMessage: 'Enter your guess below:',
-      previousGuess: 'Waiting for your best guess!'
+      previousGuessMessage: 'Waiting for your best guess!'
     };
   }
 
@@ -32,7 +33,8 @@ export default class Application extends Component {
     return (
       <div>
         <TitleBar />
-        <RangeEntry values={this.state}/>
+        <RangeEntry value={this.state} />
+        <GuessResult value={this.state} />
       </div>
     )
   }

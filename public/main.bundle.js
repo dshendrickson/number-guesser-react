@@ -8189,7 +8189,7 @@
 	
 	var _Application2 = _interopRequireDefault(_Application);
 	
-	__webpack_require__(579);
+	__webpack_require__(581);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29406,6 +29406,14 @@
 	
 	var _TitleBar2 = _interopRequireDefault(_TitleBar);
 	
+	var _RangeEntry = __webpack_require__(579);
+	
+	var _RangeEntry2 = _interopRequireDefault(_RangeEntry);
+	
+	var _GuessResult = __webpack_require__(580);
+	
+	var _GuessResult2 = _interopRequireDefault(_GuessResult);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29425,17 +29433,34 @@
 	    _this.state = {
 	      numberToGuess: '',
 	      numberGuessed: '',
-	      numberRangeLow: '',
-	      numberRangeHigh: '',
-	      guessFeedbackMessage: ''
+	      numberRangeLow: '1',
+	      numberRangeHigh: '100',
+	      guessFeedbackMessage: 'Enter your guess below:',
+	      previousGuessMessage: 'Waiting for your best guess!'
 	    };
 	    return _this;
 	  }
 	
+	  // generateNumberToGuess(lowNumber, highNumber) = () => {
+	  //   let numberToGuess = Math.floor((Math.random() * (((lowNumber) - (highNumber) + 1))) + (lowNumber));
+	  // }
+	  //
+	  // updateRangeValue(v) {
+	  //   const {name, value}
+	  // }
+	  //
+	
+	
 	  _createClass(Application, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_TitleBar2.default, null);
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_TitleBar2.default, null),
+	        _react2.default.createElement(_RangeEntry2.default, { value: this.state }),
+	        _react2.default.createElement(_GuessResult2.default, { value: this.state })
+	      );
 	    }
 	  }]);
 	
@@ -60852,6 +60877,67 @@
 
 	'use strict';
 	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var TitleBar = function TitleBar() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'title-bar' },
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Number Guesser with React'
+	    )
+	  );
+	};
+	
+	module.exports = TitleBar;
+
+/***/ },
+/* 579 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RangeEntry = function RangeEntry() {
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'range-entry' },
+	    _react2.default.createElement(
+	      'h2',
+	      null,
+	      'Enter a Number Range:'
+	    ),
+	    _react2.default.createElement('input', { className: 'number-range-low',
+	      name: 'numberRangeLow', placeholder: '1',
+	      value: '1',
+	      'aria-label': 'low number for guess range' }),
+	    _react2.default.createElement('input', { className: 'number-range-high',
+	      name: 'numberRangeHigh', placeholder: '100',
+	      value: '100',
+	      'aria-label': 'high number for guess range' })
+	  );
+	};
+	
+	module.exports = RangeEntry;
+
+/***/ },
+/* 580 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -60870,42 +60956,60 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var TitleBar = function () {
-	  function TitleBar() {
-	    _classCallCheck(this, TitleBar);
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var GuessResult = function (_Component) {
+	  _inherits(GuessResult, _Component);
+	
+	  function GuessResult() {
+	    _classCallCheck(this, GuessResult);
+	
+	    return _possibleConstructorReturn(this, (GuessResult.__proto__ || Object.getPrototypeOf(GuessResult)).apply(this, arguments));
 	  }
 	
-	  _createClass(TitleBar, [{
+	  _createClass(GuessResult, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'title-bar' },
+	        { className: 'guess-result' },
 	        _react2.default.createElement(
-	          'h1',
+	          'h3',
 	          null,
-	          'Number Guesser with React'
+	          this.props.value
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          '0'
+	        ),
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          this.props.previousGuess
 	        )
 	      );
 	    }
 	  }]);
 	
-	  return TitleBar;
-	}();
+	  return GuessResult;
+	}(Component);
 	
-	exports.default = TitleBar;
+	exports.default = GuessResult;
 
 /***/ },
-/* 579 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(580);
+	var content = __webpack_require__(582);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(582)(content, {});
+	var update = __webpack_require__(584)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -60922,10 +61026,10 @@
 	}
 
 /***/ },
-/* 580 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(581)();
+	exports = module.exports = __webpack_require__(583)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono|Roboto+Slab);", ""]);
 	
@@ -60936,7 +61040,7 @@
 
 
 /***/ },
-/* 581 */
+/* 583 */
 /***/ function(module, exports) {
 
 	/*
@@ -60992,7 +61096,7 @@
 
 
 /***/ },
-/* 582 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
