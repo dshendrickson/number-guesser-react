@@ -6,6 +6,7 @@ import moment from 'moment';
 import TitleBar from './TitleBar';
 import RangeEntry from './RangeEntry';
 import GuessResult from './GuessResult';
+import Guess from './Guess';
 
 export default class Application extends Component {
 
@@ -35,6 +36,7 @@ export default class Application extends Component {
         <TitleBar />
         <RangeEntry value={this.state} />
         <GuessResult value={this.state} />
+        <Guess />
       </div>
     )
   }
