@@ -27,11 +27,15 @@ export default class Application extends Component {
   generateNumberToGuess() {
     this.state.numberToGuess = Math.floor((Math.random() * (((this.state.numberRangeHigh) - (this.state.numberRangeLow) + 1))) + (this.state.numberRangeLow));
   }
-  //
-  // updateRangeValue(v) {
-  //   const {name, value}
-  // }
-//
+
+  updateRangeValueHigh(entered) {
+    this.setState({numberRangeHigh: entered.target.value})
+  }
+
+  updateRangeValueLow(entered) {
+    this.setState({numberRangeLow: entered.target.value})
+  }
+
   render() {
 
     this.generateNumberToGuess();
@@ -40,7 +44,10 @@ export default class Application extends Component {
       <div>
         <TitleBar />
         <RangeEntry value={this.state} />
-        <GuessResult value={this.state} />
+        <GuessResult numberRangeLow={this.state.numberRangeLow}
+                    numberRangeHigh={this.state.numberRangeHigh}
+                    updateRangeValueLow={this.updateRangeValueLow.bind(this)}
+                    updateRangeValueHigh={this.updateRangeValueHigh.bind(this)} />
         <Guess />
         <Reset />
       </div>
