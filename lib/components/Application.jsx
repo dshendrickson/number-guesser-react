@@ -43,11 +43,8 @@ export default class Application extends Component {
     return (
       <div>
         <TitleBar />
-        <RangeEntry value={this.state} />
-        <GuessResult numberRangeLow={this.state.numberRangeLow}
-                    numberRangeHigh={this.state.numberRangeHigh}
-                    updateRangeValueLow={this.updateRangeValueLow.bind(this)}
-                    updateRangeValueHigh={this.updateRangeValueHigh.bind(this)} />
+        <RangeEntry numberRangeLow={this.state.numberRangeLow} numberRangeHigh={this.state.numberRangeHigh} updateRangeValueLow={this.updateRangeValueLow.bind(this)} updateRangeValueHigh={this.updateRangeValueHigh.bind(this)} />
+        <GuessResult value={this.state}/>
         <Guess />
         <Reset />
       </div>
