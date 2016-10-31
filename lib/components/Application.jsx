@@ -12,7 +12,6 @@ import Reset from './Reset';
 
 export default class Application extends Component {
 
-
   constructor() {
     super();
     this.state = {
@@ -58,7 +57,4 @@ export default class Application extends Component {
       </div>
     )
   }
-
-
-
 }
