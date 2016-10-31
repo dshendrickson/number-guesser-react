@@ -8189,7 +8189,7 @@
 	
 	var _Application2 = _interopRequireDefault(_Application);
 	
-	__webpack_require__(581);
+	__webpack_require__(583);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29414,6 +29414,14 @@
 	
 	var _GuessResult2 = _interopRequireDefault(_GuessResult);
 	
+	var _Guess = __webpack_require__(581);
+	
+	var _Guess2 = _interopRequireDefault(_Guess);
+	
+	var _Reset = __webpack_require__(582);
+	
+	var _Reset2 = _interopRequireDefault(_Reset);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29433,33 +29441,47 @@
 	    _this.state = {
 	      numberToGuess: '',
 	      numberGuessed: '',
-	      numberRangeLow: '1',
-	      numberRangeHigh: '100',
+	      numberRangeLow: 1,
+	      numberRangeHigh: 100,
 	      guessFeedbackMessage: 'Enter your guess below:',
-	      previousGuessMessage: 'Waiting for your best guess!'
+	      previousGuessMessage: 'Waiting for your best guess!',
+	      numberOfWins: 0
 	    };
 	    return _this;
 	  }
 	
-	  // generateNumberToGuess(lowNumber, highNumber) = () => {
-	  //   let numberToGuess = Math.floor((Math.random() * (((lowNumber) - (highNumber) + 1))) + (lowNumber));
-	  // }
-	  //
-	  // updateRangeValue(v) {
-	  //   const {name, value}
-	  // }
-	  //
-	
-	
 	  _createClass(Application, [{
+	    key: 'generateNumberToGuess',
+	    value: function generateNumberToGuess() {
+	      this.state.numberToGuess = Math.floor(Math.random() * (this.state.numberRangeHigh - this.state.numberRangeLow + 1) + this.state.numberRangeLow);
+	    }
+	  }, {
+	    key: 'updateRangeValueHigh',
+	    value: function updateRangeValueHigh(entered) {
+	      this.setState({ numberRangeHigh: entered.target.value });
+	    }
+	  }, {
+	    key: 'updateRangeValueLow',
+	    value: function updateRangeValueLow(entered) {
+	      this.setState({ numberRangeLow: entered.target.value });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	
+	      this.generateNumberToGuess();
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_TitleBar2.default, null),
 	        _react2.default.createElement(_RangeEntry2.default, { value: this.state }),
-	        _react2.default.createElement(_GuessResult2.default, { value: this.state })
+	        _react2.default.createElement(_GuessResult2.default, { numberRangeLow: this.state.numberRangeLow,
+	          numberRangeHigh: this.state.numberRangeHigh,
+	          updateRangeValueLow: this.updateRangeValueLow.bind(this),
+	          updateRangeValueHigh: this.updateRangeValueHigh.bind(this) }),
+	        _react2.default.createElement(_Guess2.default, null),
+	        _react2.default.createElement(_Reset2.default, null)
 	      );
 	    }
 	  }]);
@@ -60903,34 +60925,68 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(299);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(331);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RangeEntry = function RangeEntry() {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'range-entry' },
-	    _react2.default.createElement(
-	      'h2',
-	      null,
-	      'Enter a Number Range:'
-	    ),
-	    _react2.default.createElement('input', { className: 'number-range-low',
-	      name: 'numberRangeLow', placeholder: '1',
-	      value: '1',
-	      'aria-label': 'low number for guess range' }),
-	    _react2.default.createElement('input', { className: 'number-range-high',
-	      name: 'numberRangeHigh', placeholder: '100',
-	      value: '100',
-	      'aria-label': 'high number for guess range' })
-	  );
-	};
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	module.exports = RangeEntry;
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var RangeEntry = function (_Component) {
+	  _inherits(RangeEntry, _Component);
+	
+	  function RangeEntry() {
+	    _classCallCheck(this, RangeEntry);
+	
+	    return _possibleConstructorReturn(this, (RangeEntry.__proto__ || Object.getPrototypeOf(RangeEntry)).apply(this, arguments));
+	  }
+	
+	  _createClass(RangeEntry, [{
+	    key: 'render',
+	
+	    // debugger;
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'range-entry' },
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Enter a Number Range:'
+	        ),
+	        _react2.default.createElement('input', { className: 'range-entry__low',
+	          name: 'numberRangeLow',
+	          value: this.props.numberRangeLow,
+	          onChange: this.props.updateRangeValueLow,
+	          'aria-label': 'low number for guess range' }),
+	        _react2.default.createElement('input', { className: 'range-entry__high',
+	          name: 'numberRangeHigh',
+	          value: this.props.numberRangeHigh,
+	          onChange: this.props.updateRangeValueHigh,
+	          'aria-label': 'high number for guess range' })
+	      );
+	    }
+	  }]);
+	
+	  return RangeEntry;
+	}(Component);
+	
+	exports.default = RangeEntry;
 
 /***/ },
 /* 580 */
@@ -60972,30 +61028,33 @@
 	  _createClass(GuessResult, [{
 	    key: 'render',
 	    value: function render() {
+	
+	      var numberToGuess = this.props.value.numberToGuess;
+	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'guess-result' },
+	        { id: 'guess-result' },
 	        _react2.default.createElement(
 	          'h3',
 	          null,
-	          this.props.value
+	          this.props.value.guessFeedbackMessage
 	        ),
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '0'
+	          'h2',
+	          { id: 'guess-result__value' },
+	          parseInt(numberToGuess)
 	        ),
 	        _react2.default.createElement(
 	          'h3',
 	          null,
-	          this.props.previousGuess
+	          this.props.value.previousGuessMessage
 	        )
 	      );
 	    }
 	  }]);
 	
 	  return GuessResult;
-	}(Component);
+	}(_react.Component);
 	
 	exports.default = GuessResult;
 
@@ -61003,13 +61062,134 @@
 /* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(331);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Guess = function (_Component) {
+	  _inherits(Guess, _Component);
+	
+	  function Guess() {
+	    _classCallCheck(this, Guess);
+	
+	    return _possibleConstructorReturn(this, (Guess.__proto__ || Object.getPrototypeOf(Guess)).apply(this, arguments));
+	  }
+	
+	  _createClass(Guess, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'guess' },
+	        _react2.default.createElement('input', { className: 'guess__input',
+	          name: 'numberGuessed', placeholder: 'Best Guess!',
+	          'aria-label': 'enter your best guess' }),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'guess__submit',
+	            'aria-label': 'submit your guess button' },
+	          'submit'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'guess__clear',
+	            'aria-label': 'clear your guess button' },
+	          'clear'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Guess;
+	}(_react.Component);
+	
+	exports.default = Guess;
+
+/***/ },
+/* 582 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Reset = function (_Component) {
+	  _inherits(Reset, _Component);
+	
+	  function Reset() {
+	    _classCallCheck(this, Reset);
+	
+	    return _possibleConstructorReturn(this, (Reset.__proto__ || Object.getPrototypeOf(Reset)).apply(this, arguments));
+	  }
+	
+	  _createClass(Reset, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'reset' },
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'reset__reset',
+	            'aria-label': 'reset the game' },
+	          'clear'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Reset;
+	}(_react.Component);
+	
+	exports.default = Reset;
+
+/***/ },
+/* 583 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(582);
+	var content = __webpack_require__(584);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(584)(content, {});
+	var update = __webpack_require__(586)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -61026,21 +61206,21 @@
 	}
 
 /***/ },
-/* 582 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(583)();
+	exports = module.exports = __webpack_require__(585)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono|Roboto+Slab);", ""]);
 	
 	// module
-	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbody {\n  width: 100%;\n  margin: auto;\n  margin-top: 2%;\n  background-color: #F2F2F2;\n  font-family: \"Roboto\", sans-serif; }\n\nh1, h2, h3, h4 {\n  font-weight: 600; }\n\nh1 {\n  font-size: 30px;\n  line-height: 40px; }\n\nh2 {\n  font-size: 25px;\n  line-height: 36px; }\n\nh3 {\n  font-size: 21px;\n  line-height: 24px; }\n\nh4 {\n  font-size: 17px;\n  line-height: 30px; }\n\n#react-container {\n  height: 100%;\n  margin: auto;\n  background-color: #DBDED6;\n  width: 640px;\n  color: #338D6A;\n  text-align: center; }\n", ""]);
+	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbody {\n  width: 100%;\n  margin: auto;\n  margin-top: 2%;\n  background-color: #F2F2F2;\n  font-family: \"Roboto\", sans-serif; }\n\nh1, h2, h3, h4 {\n  font-weight: 600; }\n\nh1 {\n  font-size: 30px;\n  line-height: 40px; }\n\nh2 {\n  font-size: 25px;\n  line-height: 36px; }\n\nh3 {\n  font-size: 21px;\n  line-height: 24px; }\n\nh4 {\n  font-size: 17px;\n  line-height: 30px; }\n\n#react-container {\n  height: 100%;\n  margin: auto;\n  background-color: #DBDED6;\n  width: 640px;\n  color: #338D6A;\n  text-align: center; }\n\n#guess-result__value {\n  background: white;\n  border-top: 5px;\n  border-bottom: 5px;\n  color: #246080;\n  font-family: \"Roboto Slab\", serif;\n  font-size: 36px;\n  margin: auto;\n  padding: 5px;\n  width: 10%; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 583 */
+/* 585 */
 /***/ function(module, exports) {
 
 	/*
@@ -61096,7 +61276,7 @@
 
 
 /***/ },
-/* 584 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

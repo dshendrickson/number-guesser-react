@@ -6,7 +6,6 @@ const TitleBar = () => {
     <div className='title-bar'>
       <h1>Number Guesser with React</h1>
     </div>
-  )  
+  )
 }
-
 module.exports = TitleBar

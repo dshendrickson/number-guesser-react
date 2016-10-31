@@ -7,7 +7,7 @@ import TitleBar from './TitleBar';
 import RangeEntry from './RangeEntry';
 import GuessResult from './GuessResult';
 import Guess from './Guess';
-import Reset from './Reset'
+import Reset from './Reset';
 
 export default class Application extends Component {
 
