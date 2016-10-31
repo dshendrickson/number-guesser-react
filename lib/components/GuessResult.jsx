@@ -9,7 +9,7 @@ export default class GuessResult extends Component {
     return (
       <div id='guess-result'>
         <h3>{this.props.value.guessFeedbackMessage}</h3>
-        <h2 id='guess-result__value'>{parseInt(numberToGuess)}</h2>
+        <h2 id='guess-result__value'>{this.numberToGuess}</h2>
         <h3>{this.props.value.previousGuessMessage}</h3>
       </div>
     )

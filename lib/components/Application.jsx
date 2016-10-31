@@ -21,13 +21,59 @@ export default class Application extends Component {
       numberRangeHigh: 100,
       guessFeedbackMessage: 'Enter your guess below:',
       previousGuessMessage: 'Waiting for your best guess!',
-      numberOfWins: 0
+      numberOfWins: 0,
+      numberOfGuesses: 0
     };
     this.generateNumberToGuess();
   }
 
+  compareGuessNumber() {
+    if (this.props.numberGuessed === this.props.numberToGuess) {
+      correctGuess()
+    } else if (this.props.numberGuessed > this.props.numberToGuess) {
+      highGuess()
+    } else {
+      lowGuess()
+    }
+  }
+
+  correctGuess() {
+    setFeedbackMessage("You Win!")
+    incrementNumberOfGuesses()
+    incrementNumberOfWins()
+    epandRange()
+    generateNumberToGuess()
+  }
+
+  expandRange() {
+    this.state.numberRangeLow = this.state.numberRangeLow - 10
+    this.state.numberRangeHigh = this.state.numberRangeHigh + 10
+  }
+
   generateNumberToGuess() {
     this.state.numberToGuess = Math.floor((Math.random() * (((this.state.numberRangeHigh) - (this.state.numberRangeLow) + 1))) + (this.state.numberRangeLow));
+  }
+
+  highGuess() {
+    incrementNumberOfGuesses()
+    setFeedbackMessage("You're guess was to high. Try again!")
+  }
+
+  incrementNumberOfGuesses() {
+    ++this.state.numberOfGuesses
+  }
+
+  incrementNumberOfWins() {
+    ++this.state.numberOfWins
+  }
+
+  lowGuess() {
+    incrementNumberOfGuesses()
+    setFeedbackMessage("You're guess was to low. Try again!")
+  }
+
+  setFeedbackMessage(message) {
+    this.state.guessFeedbackMessage = message
   }
 
   updateRangeValueHigh(entered) {
@@ -39,7 +85,9 @@ export default class Application extends Component {
   }
 
   updateNumberGuessed(entered) {
+    debugger;
     this.setState({numberGuessed: entered.target.value})
+    compareGuessNumber()
   }
 
   render() {
