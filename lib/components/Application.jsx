@@ -37,14 +37,15 @@ export default class Application extends Component {
   }
 
   render() {
-
     this.generateNumberToGuess();
-
     return (
       <div>
         <TitleBar />
-        <RangeEntry numberRangeLow={this.state.numberRangeLow} numberRangeHigh={this.state.numberRangeHigh} updateRangeValueLow={this.updateRangeValueLow.bind(this)} updateRangeValueHigh={this.updateRangeValueHigh.bind(this)} />
-        <GuessResult value={this.state}/>
+        <RangeEntry numberRangeLow={this.state.numberRangeLow}
+                    numberRangeHigh={this.state.numberRangeHigh}
+                    updateRangeValueLow={this.updateRangeValueLow.bind(this)}
+                    updateRangeValueHigh={this.updateRangeValueHigh.bind(this)} />
+        <GuessResult value={this.state} />
         <Guess />
         <Reset />
       </div>
