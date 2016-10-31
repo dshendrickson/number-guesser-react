@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 import { pick, map, extend, filter} from 'lodash';
 import moment from 'moment';
 
@@ -11,17 +12,19 @@ import Reset from './Reset';
 
 export default class Application extends Component {
 
+
   constructor() {
     super();
     this.state = {
       numberToGuess: '',
-      numberGuessed: '',
+      numberGuessed: 'Best Guess!',
       numberRangeLow: 1,
       numberRangeHigh: 100,
       guessFeedbackMessage: 'Enter your guess below:',
       previousGuessMessage: 'Waiting for your best guess!',
       numberOfWins: 0
     };
+    this.generateNumberToGuess();
   }
 
   generateNumberToGuess() {
@@ -36,8 +39,11 @@ export default class Application extends Component {
     this.setState({numberRangeLow: entered.target.value})
   }
 
+  updateNumberGuessed(entered) {
+    this.setState({numberGuessed: entered.target.value})
+  }
+
   render() {
-    this.generateNumberToGuess();
     return (
       <div>
         <TitleBar />
@@ -46,9 +52,13 @@ export default class Application extends Component {
                     updateRangeValueLow={this.updateRangeValueLow.bind(this)}
                     updateRangeValueHigh={this.updateRangeValueHigh.bind(this)} />
         <GuessResult value={this.state} />
-        <Guess />
+        <Guess numberGuessed={this.state.numberGuessed}
+              updateNumberGuessed={this.updateNumberGuessed.bind(this)}/>
         <Reset />
       </div>
     )
   }
+
+
+
 }
