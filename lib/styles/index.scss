@@ -3,4 +3,5 @@
 @import "reset.scss";
 @import "variables.scss";
 @import "guide.scss";
-@import "application.scss";
+@import "./components/application.scss";
+@import "./components/guessresult.scss";
