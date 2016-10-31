@@ -46,8 +46,10 @@ export default class Application extends Component {
   }
 
   expandRange() {
-    this.state.numberRangeLow = this.state.numberRangeLow - 10
-    this.state.numberRangeHigh = this.state.numberRangeHigh + 10
+    low = this.state.numberRangeLow - 10
+    high = this.state.numberRangeHigh + 10
+    this.setState({numberRangeLow: low})
+    this.setState({numberRangeHigh: high})
   }
 
   generateNumberToGuess() {
@@ -60,7 +62,8 @@ export default class Application extends Component {
   }
 
   incrementNumberOfGuesses() {
-    ++this.state.numberOfGuesses
+    increment = this.state.numberOfGuesses + 1
+    this.setState({numberOfGuesses: increment})
   }
 
   incrementNumberOfWins() {
@@ -73,7 +76,7 @@ export default class Application extends Component {
   }
 
   setFeedbackMessage(message) {
-    this.state.guessFeedbackMessage = message
+    this.setState({guessFeedbackMessage: = message.target.value})
   }
 
   updateRangeValueHigh(entered) {
