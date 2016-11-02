@@ -29,7 +29,6 @@ export default class Application extends Component {
   }
 
   clearGuess() {
-    debugger
     var lastNumber = this.state.numberGuessed
     this.setState({numberLastGuessed: lastNumber, numberGuessed: ''})
   }
@@ -52,7 +51,7 @@ export default class Application extends Component {
     this.incrementNumberOfWins()
     this.expandRange()
     this.generateNumberToGuess()
-    this.clearGuess()
+    // this.clearGuess()
   }
 
   enterKeyPress(key) {
@@ -62,11 +61,12 @@ export default class Application extends Component {
   }
 
   expandRange() {
-    let increment = 10 * this.state.numberOfWins
+    let increment = 10
     this.state.numberRangeLow = this.state.numberRangeLow - increment
     this.state.numberRangeHigh = this.state.numberRangeHigh + increment
     // this.setState({numberRangeLow: this.state.numberRangeLow - increment,
     //               numberRangeHigh: this.state.numberRangeHigh + increment})
+    debugger
   }
 
   generateNumberToGuess() {
@@ -86,7 +86,7 @@ export default class Application extends Component {
 
   incrementNumberOfWins() {
     // let increment = this.state.numberOfWins + 1
-    this.state.numberOfGuesses = this.state.numberOfWins + 1
+    this.state.numberOfWins = this.state.numberOfWins + 1
     // this.setState({numberOfGuesses: increment})
     }
 
