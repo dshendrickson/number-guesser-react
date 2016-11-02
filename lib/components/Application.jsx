@@ -28,7 +28,6 @@ export default class Application extends Component {
   }
 
   compareGuessNumber() {
-    debugger
     if (this.state.numberGuessed < this.state.numberToGuess) {
       this.lowGuess()
     } else if (this.state.numberGuessed > this.state.numberToGuess) {
@@ -47,10 +46,9 @@ export default class Application extends Component {
   }
 
   expandRange() {
-    low = this.state.numberRangeLow - 10
-    high = this.state.numberRangeHigh + 10
-    this.setState({numberRangeLow: low})
-    this.setState({numberRangeHigh: high})
+    let increment = 10 * this.state.numberOfWins
+    this.setState({numberRangeLow: this.state.numberRangeLow - increment,
+                  numberRangeHigh: this.state.numberRangeHigh + increment})
   }
 
   generateNumberToGuess() {
@@ -82,13 +80,15 @@ export default class Application extends Component {
   }
 
   updateRangeValueHigh(entered) {
-    this.setState({numberRangeHigh: parseInt(entered.target.value)})
-    this.generateNumberToGuess()
+    this.setState({numberRangeHigh: parseInt(entered.target.value)}, () => {
+      this.generateNumberToGuess()
+    })
   }
 
   updateRangeValueLow(entered) {
-    this.setState({numberRangeLow: parseInt(entered.target.value)})
-    this.generateNumberToGuess()
+    this.setState({numberRangeLow: parseInt(entered.target.value)}, () => {
+      this.generateNumberToGuess()
+    })
   }
 
   updateNumberGuessed(entered) {
