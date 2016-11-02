@@ -1,0 +1,18 @@
+#guess__input {
+  margin-bottom: 10px;
+  margin-right: 25px;
+  margin-top: 10px;
+  width: 75px;
+}
+
+%guess__buttons {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#guess__clear {
+  @extend %guess__buttons;
+  margin-right: 0;
+}

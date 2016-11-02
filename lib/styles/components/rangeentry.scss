@@ -1,0 +1,14 @@
+%holder {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#range-entry__low {
+  @extend %holder;
+  margin-right: 25px;
+}
+
+#range-entry__hight {
+  @extend %holder;
+  margin-left: 25px;
+}
